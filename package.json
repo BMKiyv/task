@@ -1,0 +1,43 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "CRA-template",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "webpack-dev-server --mode development --open --hot",
+    "build": "webpack --mode=production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BMKiyv/CRA-template.git"
+  },
+  "keywords": [
+    "CRA-template"
+  ],
+  "author": "BMKiyv",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BMKiyv/CRA-template/issues"
+  },
+  "homepage": "https://github.com/BMKiyv/CRA-template#readme",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "@babel/preset-typescript": "^7.12.7",
+    "@babel/runtime": "^7.12.5",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "html-webpack-plugin": "^5.5.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
