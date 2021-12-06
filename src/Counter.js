@@ -22,7 +22,11 @@ const Counter = () => {
         }
 
         if (status === "wait") {
-            console.log('wait');
+            sub.current = initTimer.subscribe({
+                next(x) {
+                  setSec(x => x);
+                }
+              });
         }
       
         return () => {
@@ -48,11 +52,11 @@ const Counter = () => {
     return(
         <div>
             <div>
-            <span> {new Date(sec).toISOString().slice(11, 19)}</span>
+            <span className = 'timer'> {new Date(sec).toISOString().slice(11, 19)}</span>
             </div>
-            <button onClick = {start}>Start</button>
-            <button onClick = {stop}>Stop</button>
-            <button onDoubleClick = {wait}>Pause</button>
+            <button className = 'button start' onClick = {start}>Start</button>
+            <button className = 'button stop'  onClick = {stop}>Stop</button>
+            <button className = 'button pause' onDoubleClick = {wait}>Pause</button>
         </div>
     )
 }
