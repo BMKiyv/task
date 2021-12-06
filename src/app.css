@@ -2,9 +2,35 @@
     flex-direction: column;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
+
 body{
     margin: 0;
     padding: 0;
+}
+
+.button{
+    margin: 30px 10px 0 0;
+    padding: 10px;
+    font-size: 20px;
+    color: white;
+}
+.timer{
+    display: inline-block;
+    width: 100%;
+    font-size: 25px;
+    line-height: 40px;
+    text-align: center;
+
+}
+.start{
+    background-color: green;
+}
+.stop{
+    background-color: red;
+}
+.pause{
+    background-color: grey;
 }

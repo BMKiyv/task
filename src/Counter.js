@@ -1,29 +1,62 @@
-import React,{useState,useEffect} from 'react'
-import { Observable } from './Observable'
-import { CounterServices } from './CounterServices'
+import React,{ useState, useRef, useEffect, useCallback } from 'react'
+import { initTimer } from './timer'
 
 const Counter = () => {
- const [time,setTime] = useState(new Observable(0,0,0))
- //console.log(time.seconds);
- const startTimer = ()=>{
-    time.setTime('start')
- }
- const stopTimer = ()=>{
-    time.setTime('stop')
- }
- useEffect(()=>{
-    console.log(time)
- },[time])
-    return (
+    const [sec, setSec] = useState(0);
+    const [status, setStatus] = useState("wait");
+    const sub = useRef();
+
+    useEffect(() => {
+        if (status === "start") {
+          sub.current = initTimer.subscribe({
+            next(x) {
+              setSec(x => x + 1000);
+            }
+          });
+        }
+      
+        if (status === "stop") {
+          if (sub.current) {
+            sub.current.unsubscribe();
+          }
+        }
+
+        if (status === "wait") {
+            sub.current = initTimer.subscribe({
+                next(x) {
+                  setSec(x => x);
+                }
+              });
+        }
+      
+        return () => {
+          if (sub.current) {
+            sub.current.unsubscribe();
+          }
+        }
+      }, [status]);
+
+      const start = useCallback(() => {
+        setStatus("start");
+      }, []);
+      
+      const stop = useCallback(() => {
+        setStatus("stop");
+        setSec(0);
+      }, []);
+
+      const wait = useCallback(() => {
+          setStatus("wait")
+      },[])
+      
+    return(
         <div>
             <div>
-            <span>HH:00</span>
-            <span>MM:00</span>
-            <span>SS:{time.seconds}</span>
+            <span className = 'timer'> {new Date(sec).toISOString().slice(11, 19)}</span>
             </div>
-            <button onClick = {startTimer}>start</button>
-            <button onDoubleClick = {stopTimer}>stop</button>
-            <button>pause</button>
+            <button className = 'button start' onClick = {start}>Start</button>
+            <button className = 'button stop'  onClick = {stop}>Stop</button>
+            <button className = 'button pause' onDoubleClick = {wait}>Pause</button>
         </div>
     )
 }
