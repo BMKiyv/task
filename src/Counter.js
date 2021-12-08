@@ -10,7 +10,6 @@ const Counter = () => {
         if (status === "start") {
           sub.current = initTimer.subscribe({
             next(x) {
-              console.log('start')
               setSec(x => x + 1000);
             }
           });
@@ -23,7 +22,6 @@ const Counter = () => {
         }
 
         if (status === "wait") {
-          console.log('pause')
             sub.current = PauseTimer.subscribe()
         }
       
