@@ -1,15 +1,16 @@
 import React,{ useState, useRef, useEffect, useCallback } from 'react'
-import { initTimer } from './timer'
+import { initTimer, PauseTimer, stopTimer } from './timer'
 
 const Counter = () => {
     const [sec, setSec] = useState(0);
-    const [status, setStatus] = useState("wait");
+    const [status, setStatus] = useState("");
     const sub = useRef();
 
     useEffect(() => {
         if (status === "start") {
           sub.current = initTimer.subscribe({
             next(x) {
+              console.log('start')
               setSec(x => x + 1000);
             }
           });
@@ -17,16 +18,13 @@ const Counter = () => {
       
         if (status === "stop") {
           if (sub.current) {
-            sub.current.unsubscribe();
+            sub.current = stopTimer.subscribe()
           }
         }
 
         if (status === "wait") {
-            sub.current = initTimer.subscribe({
-                next(x) {
-                  setSec(x => x);
-                }
-              });
+          console.log('pause')
+            sub.current = PauseTimer.subscribe()
         }
       
         return () => {
